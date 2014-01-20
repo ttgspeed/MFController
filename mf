@@ -1,0 +1,26 @@
+function getTime()
+  local time = http.get("http://www.timeapi.org/utc/now").readAll():sub(12,16)
+  return time
+end
+--print(getTime())
+print("Waiting for full power... ("..getTime()..")")
+while true do
+  if redstone.getInput("right") then
+    print("Starting MF cycle...")
+    redstone.setOutput("back",true)
+    print("15 minutes remaining. ("..getTime()..")")
+    sleep(360)
+    print("10 minutes remaining. ("..getTime()..")")
+    sleep(360)
+    print("5 minutes remaining. ("..getTime()..")")
+    sleep(300)
+    print("1 minute remaining. ("..getTime()..")")
+    sleep(60)
+    print("Cycle complete.")
+    print("Waiting for full power...")
+    redstone.setOutput("back",false)
+  else
+   redstone.setOutput("back",false)
+  end
+  sleep(10)
+end
